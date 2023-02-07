@@ -1,0 +1,4 @@
+packages:
+  - "src/apps/backend/*"
+  - "src/apps/frontend/*"
+  - "src/packages/*"

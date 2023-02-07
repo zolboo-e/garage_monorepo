@@ -1,0 +1,36 @@
+{
+  "name": "mechanic",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "client-only": "0.0.1",
+    "database": "workspace:*",
+    "@next/font": "13.1.6",
+    "next": "13.1.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "server-only": "0.0.1",
+    "utilities": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.19",
+    "@types/react": "18.0.27",
+    "@types/react-dom": "18.0.10",
+    "autoprefixer": "^10.4.13",
+    "eslint": "8.33.0",
+    "eslint-config-custom": "workspace:*",
+    "postcss": "^8.4.21",
+    "prettier": "2.8.3",
+    "prettier-plugin-tailwindcss": "0.2.2",
+    "tailwind-config": "workspace:*",
+    "tailwindcss": "^3.2.4",
+    "tsconfig": "workspace:*",
+    "typescript": "4.9.5"
+  }
+}

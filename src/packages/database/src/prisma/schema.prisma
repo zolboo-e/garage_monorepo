@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// generator nexusPrisma {
+//   provider = "nexus-prisma"
+// }
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+model Challenge {
+  id          String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  brief       String
+  description String
+  designs     ChallengeDesign[]
+  level       ChallengeLevel    @relation(fields: [levelId], references: [id])
+  levelId     String            @db.Uuid
+  tags        ChallengeTag[]
+  title       String
+  solutions   Solution[]
+}
+
+model ChallengeDesign {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  image       String
+  text        String
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+  challengeId String    @db.Uuid
+}
+
+model ChallengeLevel {
+  id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  code      String      @db.Char
+  text      String
+  Challenge Challenge[]
+}
+
+model ChallengeTag {
+  id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  text      String
+  Challenge Challenge[]
+}
+
+model User {
+  id   String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  // createdAt DateTime @default(now())
+  // updatedAt DateTime @updatedAt
+  name String
+  // role      UserRole @default(USER)
+
+  // followedBy User[] @relation("UserFollows")
+  // following  User[] @relation("UserFollows")
+
+  // solutions Solution[]
+}
+
+enum UserRole {
+  USER
+}
+
+model Solution {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  // author      User      @relation(fields: [authorId], references: [id])
+  // authorId    String    @db.Uuid
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+  challengeId String    @db.Uuid
+}
