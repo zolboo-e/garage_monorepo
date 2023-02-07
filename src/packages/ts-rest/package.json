@@ -1,0 +1,18 @@
+{
+  "name": "ts-rest",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup"
+  },
+  "dependencies": {
+    "@ts-rest/core": "3.16.1",
+    "zod": "3.20.2"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.18",
+    "tsconfig": "workspace:*",
+    "tsup": "^6.5.0"
+  }
+}
