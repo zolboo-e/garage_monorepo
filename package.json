@@ -16,9 +16,9 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "generate": "turbo run generate",
+    "api:build": "turbo run build --filter api",
     "mechanic:build": "turbo run build --filter mechanic",
-    "mechanic:start": "pnpm --filter mechanic start"
+    "pdf-generator:build": "turbo run build --filter pdf-generator"
   },
   "devDependencies": {
     "@types/node": "18.11.19",

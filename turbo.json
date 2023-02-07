@@ -1,11 +1,12 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "globalEnv": ["NODE_ENV"],
+  "globalEnv": [],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**", ".next/**"],
+      "env": []
     },
     "lint": {},
     "dev": {
@@ -14,9 +15,20 @@
     "generate": {
       "dependsOn": ["^generate"]
     },
+    "api#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"],
+      "env": []
+    },
     "mechanic#build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**"]
+      "outputs": [".next/**"],
+      "env": ["NEXT_PUBLIC_BACKEND_URL"]
+    },
+    "pdf-generator#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"],
+      "env": []
     }
   }
 }
