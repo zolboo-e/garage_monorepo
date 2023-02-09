@@ -17,8 +17,14 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "api:build": "turbo run build --filter api",
+    "api:start": "pnpm --filter api start:prod",
     "mechanic:build": "turbo run build --filter mechanic",
-    "pdf-generator:build": "turbo run build --filter pdf-generator"
+    "mechanic:start": "pnpm --filter mechanic start",
+    "pdf-generator:build": "turbo run build --filter pdf-generator",
+    "docker:build": "COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose -f docker-compose.yml build",
+    "docker:start": "docker-compose -f docker-compose.yml up -d",
+    "db:migrate:dev": "pnpm --filter database db:migrate:dev",
+    "db:migrate:deploy": "pnpm --filter database db:migrate:deploy"
   },
   "devDependencies": {
     "@types/node": "18.11.19",

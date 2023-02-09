@@ -1,5 +1,6 @@
 //
 import Link from "next/link";
+import { classNames } from "utilities";
 
 //
 import { client } from "@/lib/services/client";
@@ -16,8 +17,10 @@ const UserPage = async ({ params: { uid } }: { params: { uid: string } }) => {
 
   return (
     <div>
-      <Link href="/users">To users page</Link>
-      <div>{`USER PAGE`}</div>
+      <Link className="link" href="/users">
+        To users page
+      </Link>
+      <div className={classNames("font-bold text-blue-400")}>{`USER PAGE`}</div>
       <div>{`ID: ${user.id}`}</div>
       <div>{`NAME: ${user.name}`}</div>
     </div>
