@@ -10,7 +10,7 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "packageManager": "pnpm@7.26.3",
+  "packageManager": "pnpm@7.27.0",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -24,7 +24,8 @@
     "docker:build": "COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose -f docker-compose.yml build",
     "docker:start": "docker-compose -f docker-compose.yml up -d",
     "db:migrate:dev": "pnpm --filter database db:migrate:dev",
-    "db:migrate:deploy": "pnpm --filter database db:migrate:deploy"
+    "db:migrate:deploy": "pnpm --filter database db:migrate:deploy",
+    "flyio:api:deploy": "flyctl deploy --config ./src/apps/backend/api/fly.toml --dockerfile ./src/apps/backend/api/Dockerfile"
   },
   "devDependencies": {
     "@types/node": "18.11.19",

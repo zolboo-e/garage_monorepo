@@ -41,7 +41,7 @@ COPY --from=pruned /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 RUN pnpm install
 
 # Build the project and its dependencies
-RUN pnpm mechanic:build
+RUN pnpm db:migrate:deploy; pnpm mechanic:build
 
 #
 # 

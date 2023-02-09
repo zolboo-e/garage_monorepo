@@ -41,7 +41,7 @@ COPY --from=pruned /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 RUN pnpm install
 
 # Build the project and its dependencies
-RUN pnpm api:build
+RUN pnpm db:migrate:deploy; pnpm api:build
 
 #
 # 
@@ -57,4 +57,4 @@ RUN adduser --system --uid 1001 nestjs
 USER nestjs
 
 COPY --from=builder /app .
-CMD pnpm db:migrate:deploy; pnpm api:start
+CMD pnpm api:start
