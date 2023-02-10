@@ -23,8 +23,9 @@
     "pdf-generator:build": "turbo run build --filter pdf-generator",
     "docker:build": "COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose -f docker-compose.yml build",
     "docker:start": "docker-compose -f docker-compose.yml up -d",
-    "db:migrate:dev": "pnpm --filter database db:migrate:dev",
-    "db:migrate:deploy": "pnpm --filter database db:migrate:deploy",
+    "db:migrate:deploy": "turbo run db:migrate:deploy",
+    "db:push": "turbo run db:push",
+    "db:seed": "turbo run db:seed",
     "flyio:api:deploy": "flyctl deploy --config ./src/apps/backend/api/fly.toml --dockerfile ./src/apps/backend/api/Dockerfile"
   },
   "devDependencies": {

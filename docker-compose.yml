@@ -5,10 +5,29 @@ services:
     container_name: database
     image: postgres:latest
     restart: always
-    ports: 
+    ports:
       - 5432:5432
-    networks: 
+    networks:
       - app_network
+    env_file: .env
+    healthcheck:
+      test: pg_isready -U postgres -d garage-monorepo || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+  prisma-migrate:
+    container_name: prisma-migrate
+    build:
+      context: .
+      dockerfile: ./src/packages/database/Dockerfile
+      args:
+        DATABASE_URL: "${DATABASE_URL}"
+    networks:
+      - app_network
+    depends_on:
+      database:
+        condition: service_healthy
     env_file: .env
 
   api:
@@ -16,31 +35,47 @@ services:
     build:
       context: .
       dockerfile: ./src/apps/backend/api/Dockerfile
+      args:
+        DATABASE_URL: "${DATABASE_URL}"
     restart: always
-    ports: 
+    ports:
       - 3001:3001
-    networks: 
+    networks:
       - app_network
-    depends_on: 
-      - database
+    depends_on:
+      prisma-migrate:
+        condition: service_completed_successfully
     env_file: .env
+    healthcheck:
+      test: curl -f localhost:3001/health || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 3
 
   mechanic:
     container_name: mechanic
     build: 
       context: .
       dockerfile: ./src/apps/frontend/mechanic/Dockerfile
+      args:
+        DATABASE_URL: "${DATABASE_URL}"
     restart: always
     ports: 
       - 3000:3000
     networks: 
       - app_network
     depends_on: 
-      - api
+      api:
+        condition: service_healthy
     env_file: .env
+    healthcheck:
+      test: curl -f localhost:3000/api/health || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 3
 
-# Define a network, which allows containers to communicate
-# with each other, by using their container name as a hostname
+  # Define a network, which allows containers to communicate
+  # with each other, by using their container name as a hostname
 networks:
   app_network:
     external: true
